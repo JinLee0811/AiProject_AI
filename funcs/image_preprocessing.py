@@ -13,7 +13,7 @@ def image_preprocessing(img_data):
                                  max_pixel_value=255.0,
                                  p=1.0)], p=1.0)
 
-    # BytesIO 객체로 변환하여 PIL 이미지 열기
+    # BytesIO 객체로 변환하여 PIL 이미지 열기!
     image = Image.open(BytesIO(img_data))
     np_img = np.array(image)
     preprocessed_image = aug_image(image=np_img)['image']

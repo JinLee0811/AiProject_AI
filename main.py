@@ -1,10 +1,14 @@
 from fastapi import FastAPI
 import uvicorn
 from starlette.responses import JSONResponse
-from ai.funcs.image_preprocessing import image_preprocessing
-from ai.funcs.model_prediction import get_prediction
+from funcs.image_preprocessing import image_preprocessing
+from funcs.model_prediction import get_prediction
 import boto3
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
 
 app = FastAPI()
 
@@ -23,9 +27,13 @@ async def root():
 
 @app.post("/predict/")
 async def predict(image_key: str):
-    s3 = boto3.client('s3')
+    endpoint_url = os.environ.get('endpoint_url')
+    access_key = os.environ.get('aws_access_key_id')
+    secret_key = os.environ.get('aws_secret_access_key')
+    s3 = boto3.client('s3', endpoint_url=endpoint_url, aws_access_key_id=access_key,
+                      aws_secret_access_key=secret_key)
 
-    # S3 객체 다운로드
+    # S3 객체 다운로드!
     response = s3.get_object(Bucket='cropdoctor', Key=image_key)
     img_data = response['Body'].read()
 
