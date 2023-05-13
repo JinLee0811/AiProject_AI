@@ -22,22 +22,17 @@ def load_model():
 
 
 
-# get_prediction: 예측!
+# get_prediction: 예측
 def get_prediction(preprocessed_image):
     print(preprocessed_image.shape)
     model = load_model()
-    # new_shape = (1, 3, 224, 224)
-    # pred_image = torch.tensor(preprocessed_image)
-    # pred_image = pred_image.permute(2, 0, 1)  # channel을 맨 앞으로 보내기 위해 permute
-    # pred_image = pred_image.view(new_shape)
+    model.eval() # 추론 모드로 변경
 
     pred_image = preprocessed_image.view(1, 3, 224, 224)
 
-
     pred = model(pred_image)
-    probability, solution_id = torch.max(pred, dim=1)
-
-    # pred_prob = torch.max(torch.nn.functional.softmax(probability))
+    pred_prob = torch.max(torch.nn.functional.softmax(pred))
+    probability, solution_id = torch.max(pred_prob, dim=1)
 
     probability, solution_id = float(probability.cpu())*100, int(solution_id.cpu())+1
 

@@ -33,7 +33,7 @@ async def predict(image_key: str):
     s3 = boto3.client('s3', endpoint_url=endpoint_url, aws_access_key_id=access_key,
                       aws_secret_access_key=secret_key)
 
-    # S3 객체 다운로드!
+    # S3 객체 다운로드
     response = s3.get_object(Bucket='cropdoctor', Key=image_key)
     img_data = response['Body'].read()
 
