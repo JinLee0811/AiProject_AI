@@ -27,9 +27,9 @@ async def root():
 
 @app.post("/predict/")
 async def predict(image_key: str):
-    endpoint_url = os.environ.get('endpoint_url')
-    access_key = os.environ.get('aws_access_key_id')
-    secret_key = os.environ.get('aws_secret_access_key')
+    endpoint_url = os.getenv('endpoint_url')
+    access_key = os.getenv('aws_access_key_id')
+    secret_key = os.getenv('aws_secret_access_key')
     s3 = boto3.client('s3', endpoint_url=endpoint_url, aws_access_key_id=access_key,
                       aws_secret_access_key=secret_key)
 
