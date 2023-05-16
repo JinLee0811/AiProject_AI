@@ -31,7 +31,7 @@ def get_prediction(preprocessed_image):
     pred_image = preprocessed_image.view(1, 3, 224, 224)
 
     pred = model(pred_image)
-    pred_prob = torch.max(torch.nn.functional.softmax(pred))
+    pred_prob = torch.nn.functional.softmax(pred, dim=1)
     probability, solution_id = torch.max(pred_prob, dim=1)
 
     probability, solution_id = float(probability.cpu())*100, int(solution_id.cpu())+1

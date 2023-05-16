@@ -15,7 +15,7 @@ app = FastAPI()
 # cors 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3001"],
+    allow_origins=["http://127.0.0.1:3001", "http://kdt-ai6-team03.elicecoding.com:3001"],
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
@@ -25,7 +25,7 @@ async def root():
     return {"message": "crop doctor model api!"}
 
 
-@app.post("/predict/")
+@app.post("/predict")
 async def predict(image_key: str):
     endpoint_url = os.getenv('endpoint_url')
     access_key = os.getenv('aws_access_key_id')
