@@ -5,7 +5,7 @@ import torch.nn as nn
 # load_model: 모델 불러오기
 def load_model():
     # 모델 경로 및 device 설정
-    model_path = "./models/baseline_1.ckpt"
+    model_path = "./models/mobilenet_v2_2.ckpt"
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     # 모델 불러오기

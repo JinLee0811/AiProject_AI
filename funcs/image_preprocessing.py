@@ -13,6 +13,7 @@ def image_preprocessing(img_data):
 
     # BytesIO 객체로 변환하여 PIL 이미지 열기
     image = Image.open(BytesIO(img_data))
-    preprocessed_image = data_transforms(image)
+    image_conv = image.convert("RGB")
+    preprocessed_image = data_transforms(image_conv)
 
     return preprocessed_image
